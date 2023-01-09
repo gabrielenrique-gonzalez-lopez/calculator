@@ -1,26 +1,8 @@
-Calculator
----
-<img src="Logotype primary.png" width="60%" height="60%" />
+# Calculator
 
-Created with *create-react-app*. See the [full create-react-app guide](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+A simple Calculator App built with HTML, CSS, and JavaScript. It also has a Dark Mode.
 
+![Calculator Preview Image](https://user-images.githubusercontent.com/44538497/169086855-bd20e6e0-3675-4db6-b086-0298005973f4.png)
 
-
-Try It
----
-
-[ahfarmer.github.io/calculator](https://ahfarmer.github.io/calculator/)
-
-
-
-Install
----
-
-`npm install`
-
-
-
-Usage
----
-
-`npm start`
+* Favicon from:
+<a href="https://www.flaticon.com/free-icons/calculator" title="calculator icons">Freepik - Flaticon</a>
