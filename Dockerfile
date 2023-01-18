@@ -2,9 +2,9 @@ FROM node:12.18.1
 
 ENV NODE_ENV=production
 
-WORKDIR /.
+WORKDIR /usr/src/app
 
-COPY ["package.json", "./"]
+COPY package*.json ./
 
 RUN npm install --production
 
@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE  8080
 
-CMD [ "node", "/src/index.js"]
+CMD [ "node", "src/index.js"]
