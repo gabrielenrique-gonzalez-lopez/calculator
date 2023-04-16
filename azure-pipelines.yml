@@ -67,6 +67,7 @@ stages:
         tag: $(tag)
         ports: '80:80'
         environmentVariables: 'NODE_ENV=test'
+        arguments: 'npm run test'
 
     - task: PublishTestResults@2
       displayName: Publish test results
