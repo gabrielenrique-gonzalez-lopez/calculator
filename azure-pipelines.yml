@@ -58,16 +58,23 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-    - task: Docker@2
-      displayName: Run tests
+    # - task: Docker@2
+    #   displayName: Run tests
+    #   inputs:
+    #     command: 
+    #     containerRegistry: $(dockerRegistryServiceConnection)
+    #     repository: $(imageRepository)
+    #     tag: $(tag)
+    #     ports: '80:80'
+    #     environmentVariables: 'NODE_ENV=test'
+    #     arguments: 'npm run test'
+    - task: ContainerStructureTest@0
       inputs:
-        command: run
-        containerRegistry: $(dockerRegistryServiceConnection)
-        repository: $(imageRepository)
-        tag: $(tag)
-        ports: '80:80'
-        environmentVariables: 'NODE_ENV=test'
-        arguments: 'npm run test'
+        dockerRegistryServiceConnection: 'registryUpmPFG'
+        repository: 'calculator'
+        configFile: './package.json'
+        testRunTitle: 'Test calculator'
+        failTaskOnFailedTests: true
 
     - task: PublishTestResults@2
       displayName: Publish test results
