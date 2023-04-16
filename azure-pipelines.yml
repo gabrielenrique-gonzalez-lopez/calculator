@@ -5,7 +5,7 @@
 trigger:
 - main
 
-pool: Azure scale set UPM PFG
+#pool: Azure scale set UPM PFG
 
 resources:
 - repo: self
@@ -45,8 +45,35 @@ stages:
         tags: |
           $(tag)
 
-    - upload: manifests
+    - publish: manifests
       artifact: manifests
+
+- stage: Test
+  displayName: Test stage
+  dependsOn: Build
+
+  jobs:
+  - job: Test
+    displayName: Test
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Run tests
+      inputs:
+        command: run
+        containerRegistry: $(dockerRegistryServiceConnection)
+        repository: $(imageRepository)
+        tag: $(tag)
+        ports: '80:80'
+        environmentVariables: 'NODE_ENV=test'
+
+    - task: PublishTestResults@2
+      displayName: Publish test results
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '**/TEST-*.xml'
+        failTaskOnFailedTests: true
 
 - stage: Deploy
   displayName: Deploy stage
@@ -58,7 +85,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'gabrielenriquegonzalezlopezcalculator.calculator'
+    environment: 'js-calculator.calculator'
     strategy:
       runOnce:
         deploy:
@@ -88,7 +115,7 @@ stages:
     pool:
       vmImage: $(vmImageName)
 
-    environment: 'gabrielenriquegonzalezlopezcalculator.$(k8sNamespaceForPR)'
+    environment: 'js-calculator.$(k8sNamespaceForPR)'
     strategy:
       runOnce:
         deploy:
